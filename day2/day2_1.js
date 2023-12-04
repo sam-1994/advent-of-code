@@ -20,7 +20,7 @@ function getGameCounts(input) {
   let splitInput = input.split(': ');
 
   const gameNumber = Number.parseInt(splitInput[0].split(' ')[1]);
-  const turns = splitInput[1].split('; ' )
+  const turns = splitInput[1].split('; ')
 
   return {
     gameNumber,
@@ -32,9 +32,9 @@ function getValidGameSum(inputs) {
   const gameCounts = inputs.map(getGameCounts);
 
   const validGameSum = gameCounts.reduce((sum, currentRound) => {
-    for(const colorCounts of currentRound.counts) {
-      for(const color of Object.keys(colorCounts)) {
-        if(amounts[color] < colorCounts[color]) {
+    for (const colorCounts of currentRound.counts) {
+      for (const color of Object.keys(colorCounts)) {
+        if (amounts[color] < colorCounts[color]) {
           return sum;
         }
       }

@@ -14,7 +14,7 @@ function getGameCounts(input) {
   let splitInput = input.split(': ');
 
   const gameNumber = Number.parseInt(splitInput[0].split(' ')[1]);
-  const turns = splitInput[1].split('; ' )
+  const turns = splitInput[1].split('; ')
 
   return {
     gameNumber,
@@ -28,8 +28,8 @@ function getPowerOfRound(round) {
     green: 0,
     blue: 0,
   };
-  for(const colorCounts of round.counts) {
-    for(const color of Object.keys(colorCounts)) {
+  for (const colorCounts of round.counts) {
+    for (const color of Object.keys(colorCounts)) {
       minimalAmounts[color] = Math.max(minimalAmounts[color], colorCounts[color])
     }
   }
