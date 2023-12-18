@@ -22,28 +22,60 @@ function getPossibleNextEdges(map, edge) {
 
   const targetEdges = edge.target.edges;
 
-  if (!!targetEdges.up && edge.direction !== 'down' && (edge.direction !== 'up' || edge.streightSteps < 3) && edge.currentHeat + targetEdges.up.target.heat <= targetEdges.up.currentHeat) {
+  if (
+    !!targetEdges.up
+    && edge.direction !== 'down'
+    && (edge.direction !== 'up' || edge.streightSteps < 3)
+    && (
+      edge.currentHeat + targetEdges.up.target.heat <= targetEdges.up.currentHeat
+      || (edge.direction === 'up' ? edge.streightSteps + 1 : 1) < targetEdges.up.streightSteps
+    )
+  ) {
     targetEdges.up.streightSteps = edge.direction === 'up' ? edge.streightSteps + 1 : 1
     targetEdges.up.currentHeat = edge.currentHeat + targetEdges.up.target.heat;
     targetEdges.up.path = [...edge.path, targetEdges.up.target];
     edges.push(targetEdges.up);
   }
 
-  if (!!targetEdges.right && edge.direction !== 'left' && (edge.direction !== 'right' || edge.streightSteps < 3) && edge.currentHeat + targetEdges.right.target.heat <= targetEdges.right.currentHeat) {
+  if (
+    !!targetEdges.right
+    && edge.direction !== 'left'
+    && (edge.direction !== 'right' || edge.streightSteps < 3)
+    && (
+      edge.currentHeat + targetEdges.right.target.heat <= targetEdges.right.currentHeat
+      || (edge.direction === 'right' ? edge.streightSteps + 1 : 1) < targetEdges.right.streightSteps
+    )
+  ) {
     targetEdges.right.streightSteps = edge.direction === 'right' ? edge.streightSteps + 1 : 1
     targetEdges.right.currentHeat = edge.currentHeat + targetEdges.right.target.heat;
     targetEdges.right.path = [...edge.path, targetEdges.right.target];
     edges.push(targetEdges.right);
   }
 
-  if (!!targetEdges.down && edge.direction !== 'up' && (edge.direction !== 'down' || edge.streightSteps < 3) && edge.currentHeat + targetEdges.down.target.heat <= targetEdges.down.currentHeat) {
+  if (
+    !!targetEdges.down
+    && edge.direction !== 'up'
+    && (edge.direction !== 'down' || edge.streightSteps < 3)
+    && (
+      edge.currentHeat + targetEdges.down.target.heat <= targetEdges.down.currentHeat
+      || (edge.direction === 'down' ? edge.streightSteps + 1 : 1) < targetEdges.down.streightSteps
+    )
+  ) {
     targetEdges.down.streightSteps = edge.direction === 'down' ? edge.streightSteps + 1 : 1
     targetEdges.down.currentHeat = edge.currentHeat + targetEdges.down.target.heat;
     targetEdges.down.path = [...edge.path, targetEdges.down.target];
     edges.push(targetEdges.down);
   }
 
-  if (!!targetEdges.left && edge.direction !== 'right' && (edge.direction !== 'left' || edge.streightSteps < 3) && edge.currentHeat + targetEdges.left.target.heat <= targetEdges.left.currentHeat) {
+  if (
+    !!targetEdges.left
+    && edge.direction !== 'right'
+    && (edge.direction !== 'left' || edge.streightSteps < 3)
+    && (
+      edge.currentHeat + targetEdges.left.target.heat <= targetEdges.left.currentHeat
+      || (edge.direction === 'left' ? edge.streightSteps + 1 : 1) < targetEdges.left.streightSteps
+    )
+  ) {
     targetEdges.left.streightSteps = edge.direction === 'left' ? edge.streightSteps + 1 : 1
     targetEdges.left.currentHeat = edge.currentHeat + targetEdges.left.target.heat;
     targetEdges.left.path = [...edge.path, targetEdges.left.target];

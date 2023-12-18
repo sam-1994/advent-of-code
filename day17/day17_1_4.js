@@ -22,7 +22,7 @@ function getPossibleNextPositions(position) {
 
   const positions = [];
 
-  if (y > 0 && direction !== 's' && ((direction === 'n' && streightSteps < 10) || (direction !== 'n' && streightSteps >= 4 && y >= 4 ))) {
+  if (y > 0 && direction !== 's' && (direction !== 'n' || streightSteps < 3)) {
     const northCacheString = getCacheString(x, y - 1, 'n', direction === 'n' ? streightSteps + 1 : 1);
     const northHeat = heat + map[y - 1][x];
     if (!cache.has(northCacheString) || northHeat < cache.get(northCacheString)) {
@@ -31,7 +31,7 @@ function getPossibleNextPositions(position) {
     }
   }
 
-  if (x < maxX && direction !== 'w' && ((direction === 'e' && streightSteps < 10) || (direction !== 'e' && streightSteps >= 4 && x <= maxX -4 ))) {
+  if (x < maxX && direction !== 'w' && (direction !== 'e' || streightSteps < 3)) {
     const eastCacheString = getCacheString(x + 1, y, 'e', direction === 'e' ? streightSteps + 1 : 1);
     const eastHeat = heat + map[y][x + 1];
     if (!cache.has(eastCacheString) || eastHeat < cache.get(eastCacheString)) {
@@ -40,7 +40,7 @@ function getPossibleNextPositions(position) {
     }
   }
 
-  if (y < maxY && direction !== 'n' && ((direction === 's' && streightSteps < 10) || (direction !== 's' && streightSteps >= 4 && y <= maxY - 4 ))) {
+  if (y < maxY && direction !== 'n' && (direction !== 's' || streightSteps < 3)) {
     const southCacheString = getCacheString(x, y + 1, 's', direction === 's' ? streightSteps + 1 : 1);
     const southHeat = heat + map[y + 1][x];
     if (!cache.has(southCacheString) || southHeat < cache.get(southCacheString)) {
@@ -49,7 +49,7 @@ function getPossibleNextPositions(position) {
     }
   }
 
-  if (x > 0 && direction !== 'e' && ((direction === 'w' && streightSteps < 10) || (direction !== 'w' && streightSteps >= 4 && x >= 4 ))) {
+  if (x > 0 && direction !== 'e' && (direction !== 'w' || streightSteps < 3)) {
     const westCacheString = getCacheString(x - 1, y, 'w', direction === 'w' ? streightSteps + 1 : 1);
     const westHeat = heat + map[y][x - 1];
     if (!cache.has(westCacheString) || westHeat < cache.get(westCacheString)) {
@@ -93,19 +93,13 @@ let currentPositions = [eastStartCacheString, southStartCacheString];
 
 let currentBestPosition;
 
-const startDate = new Date();
-console.log('Start:', startDate);
 do {
   const currentBesPositionIndex = getIndexOfPositionWithMinHeat(currentPositions);
   currentBestPosition = currentPositions.splice(currentBesPositionIndex, 1)[0];
   const currentBestPositionHeat = cache.get(currentBestPosition);
+  console.log(currentBestPosition, currentBestPositionHeat);
+
   currentPositions.push(...getPossibleNextPositions(currentBestPosition));
 } while (!currentBestPosition.startsWith(`${maxX}_${maxY}`))
-
-const finishDate = new Date();
-console.log('Finished:', finishDate);
-
-const duration = Math.floor(finishDate - startDate) / 1000;
-console.log(`Duration: ${Math.floor(duration / 60)}min ${duration % 60}s`);
 
 console.log('Heat:', cache.get(currentBestPosition));
