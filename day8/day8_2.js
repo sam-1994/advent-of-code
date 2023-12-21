@@ -44,15 +44,6 @@ const stepsOfLocation = locations.map((location) => {
 
 console.log(stepsOfLocation);
 
-function gcd(a, b) {
-  return b === 0 ? a : gcd(b, a % b);
-}
-
-// Function to find the least common multiple (LCM) of two numbers
-function lcm(a, b) {
-  return (a * b) / gcd(a, b);
-}
-
 console.log(
-  stepsOfLocation.reduce((result, steps) => lcm(result, steps), 1)
+  stepsOfLocation.reduce((result, steps) => utils.lcm(result, steps), 1)
 );
